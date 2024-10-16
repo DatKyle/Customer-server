@@ -1,4 +1,8 @@
-﻿using CarApi.Domain.Errors.DAO;
+﻿using System.Diagnostics.Metrics;
+using System.Net;
+using System.Numerics;
+using System.Xml.Linq;
+using CarApi.Domain.Errors.DAO;
 using CarApi.Domain.Services.Customer;
 using CarApi.Models;
 
@@ -12,6 +16,14 @@ namespace CarApi.DAO.InMemory.Customer
 
         public CustomerDAO() {
             customers = new Dictionary<int, CustomerModel>();
+            Create(new CustomerModel()
+            {
+                Name = "Kyle",
+                Address = "name st",
+                PostalCode = "CV5",
+                Country = "UK",
+                Phone = "07772225555"
+            });
         }
 
         public int Create(CustomerModel customer)
