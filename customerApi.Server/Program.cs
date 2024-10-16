@@ -4,6 +4,7 @@ using CarApi.Business.Validators;
 using CarApi.DAO.InMemory.Customer;
 using CarApi.Domain.Models.Validators;
 using CarApi.Domain.Services.Customer;
+using CarApi.Server.Controllers;
 
 namespace customerApi.Server
 {
@@ -26,6 +27,16 @@ namespace customerApi.Server
             builder.Services.AddSingleton<ICustomerService, CustomerService>();
 
             builder.Services.AddControllers();
+
+            builder.Services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => {
+                    options.AllowAnyOrigin();
+                    options.AllowAnyMethod();
+                    options.AllowAnyHeader();
+                });
+            });
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -44,10 +55,17 @@ namespace customerApi.Server
 
             app.UseHttpsRedirection();
 
+            app.UseRouting();
+            
             app.UseAuthorization();
-
-
+            
             app.MapControllers();
+
+            app.UseCors(options => {
+                options.AllowAnyOrigin();
+                options.AllowAnyMethod();
+                options.AllowAnyHeader();
+            });
 
             app.MapFallbackToFile("/index.html");
 

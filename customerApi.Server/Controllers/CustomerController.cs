@@ -8,15 +8,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarApi.Server.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class CustomerController : ControllerBase
     {
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<CustomerController> _logger;
         private readonly ICustomerService _customerService;
 
         public CustomerController(ICustomerService customerService,
-            ILogger<WeatherForecastController> logger)
+            ILogger<CustomerController> logger)
         {
             _logger = logger;
             _customerService = customerService;
